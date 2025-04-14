@@ -4,7 +4,7 @@ import { AppContext } from "../context/Appcontext";
 import { toast } from "react-toastify";
 import axios from "axios";
 const MyProfile = () => {
-  const { userData, setUserData, loadUserProfileData, token} = useContext(AppContext);
+  const { userData, setUserData, loadUserProfileData, token,backendUrl} = useContext(AppContext);
   const [isEdit, setIsEdit] = useState(false);
   const [image, setImage] = useState(false);
 
@@ -23,7 +23,7 @@ const MyProfile = () => {
       }
   
       const { data } = await axios.post(
-        "http://localhost:8000/api/user/update-profile",
+        backendUrl+"/api/user/update-profile",
         formData,
         {
           headers: {
