@@ -9,7 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const {setAtoken,} = useContext(AdminContext)
+  const {setAtoken,backendUrl} = useContext(AdminContext)
   const {setDToken,} = useContext(DoctorContext)
 
   const onSubmitHandler = async (e)=>{
@@ -17,7 +17,7 @@ e.preventDefault()
 
 try {
     if(state === "Admin"){
-       const {data} = await axios.post('http://localhost:8000/api/admin/login',{email,password})
+       const {data} = await axios.post(backendUrl+'/api/admin/login',{email,password})
        if (data.success) {
         localStorage.setItem("atoken",data.token)
         setAtoken(data.token)
@@ -26,7 +26,7 @@ try {
        }
     }else{
 
-const {data} = await axios.post('http://localhost:8000/api/doctor/doctor_login',{email,password})
+const {data} = await axios.post(backendUrl+'/api/doctor/doctor_login',{email,password})
        if (data.success) {
         localStorage.setItem("dtoken",data.token)
         setDToken(data.token)
