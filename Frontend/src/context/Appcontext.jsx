@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
-  const backendUrl = import.meta.VITE_BACKEND_URL;
+  const backendUrl = import.meta.VITE_BACKEND_URL || "https://doctors-appointment-system-backend.onrender.com";
   const [doctors, setDoctors] = useState([]);
   const [userData, setUserData] = useState(false);
   const [token, setToken] = useState(
