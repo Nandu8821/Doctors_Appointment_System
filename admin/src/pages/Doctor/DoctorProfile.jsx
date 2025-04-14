@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { AdminContext } from "./AdminContext";
 
 const DoctorProfile = () => {
     const { dToken, profileData,
         getProfileData,
         setProfileData } = useContext(DoctorContext)
+    const {backendUrl}=useContext(AdminContext)
     const [isEdit, setIsEdit] = useState(false);
 
     const updateProfile = async () => {
@@ -16,7 +18,7 @@ const DoctorProfile = () => {
             address: profileData.address,
             available: profileData.available
         }
-        const {data}= await axios.post(`http://localhost:8000/api/doctor/update-profile`, updateData, {
+        const {data}= await axios.post(`${backendUrl}/api/doctor/update-profile`, updateData, {
             headers: {
               dToken
             }
