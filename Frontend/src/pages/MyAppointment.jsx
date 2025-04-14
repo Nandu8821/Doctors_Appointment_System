@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const MyAppointment = () => {
-  const { token } = useContext(AppContext);
+  const { token ,backendUrl} = useContext(AppContext);
   const [appointments, setAppointments] = useState([]);
 
   const getUserAppointments = async () => {
@@ -12,7 +12,7 @@ const MyAppointment = () => {
 
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/user/appointments",
+        backendUrl+"/api/user/appointments",
         { headers: { token } }
       );
       console.log(data);
@@ -33,7 +33,7 @@ const MyAppointment = () => {
     try {
       console.log(appointmentId);
       const { data } = await axios.post(
-        "http://localhost:8000/api/user/cancel-appointment",
+        backendUrl+"/api/user/cancel-appointment",
         { appointmentId },
         { headers: { token } }
       );
@@ -64,7 +64,7 @@ const MyAppointment = () => {
       handler: async (response) => {
         try {
           const verifyData = await axios.post(
-            "http://localhost:8000/api/user/verifyRazorpay",
+            backendUrl+"/api/user/verifyRazorpay",
             response,
             { headers: { token } }
           );
@@ -88,7 +88,7 @@ const MyAppointment = () => {
   const appointmentRazorpay = async (appointmentId) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/user/payment-razorpay",
+        backendUrl+"/api/user/payment-razorpay",
         { appointmentId },
         { headers: { token } }
       );
