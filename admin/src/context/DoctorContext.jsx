@@ -1,7 +1,7 @@
 import axios from "axios";
-import { createContext, useState } from "react";
+import { createContext, useState ,useContext} from "react";
 import { toast } from "react-toastify";
-
+import { AdminContext } from "./AdminContext";
 export const DoctorContext = createContext();
 
 const DoctorContextProvider = (props) => {
@@ -9,12 +9,12 @@ const DoctorContextProvider = (props) => {
   const [appointments, setAppointments] = useState([]);
 const [dashData,setDashData]=useState({ latestAppointments: []})
 const [profileData,setProfileData]=useState({}) //doctor inf
-
+const {backendUrl}=useContext(AdminContext)
   const getAppointments = async () => {
     try {
       console.log("Sending token:", dToken);
       const { data } = await axios.get(
-        "http://localhost:8000/api/doctor/appointments",
+        backendUrl+"/api/doctor/appointments",
         {
           headers: {
             dToken 
@@ -38,7 +38,7 @@ const [profileData,setProfileData]=useState({}) //doctor inf
   const completeAppointment = async (appointmentId) => {
    try {
     const { data } = await axios.post(
-      "http://localhost:8000/api/doctor/complete-appointment",{appointmentId},
+      backendUrl+"/api/doctor/complete-appointment",{appointmentId},
       {
         headers: {
           dToken 
@@ -64,7 +64,7 @@ const [profileData,setProfileData]=useState({}) //doctor inf
   const cancelAppointment = async (appointmentId) => {
     try {
      const { data } = await axios.post(
-       "http://localhost:8000/api/doctor/cancel-appointment",{appointmentId},
+       backendUrl+"/api/doctor/cancel-appointment",{appointmentId},
        {
          headers: {
            dToken 
@@ -90,7 +90,7 @@ const [profileData,setProfileData]=useState({}) //doctor inf
    const doctorDashboardData = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/doctor/dashboard",
+        backendUrl+"/api/doctor/dashboard",
         {
           headers: {
             dToken 
@@ -115,7 +115,7 @@ const [profileData,setProfileData]=useState({}) //doctor inf
 
   const getProfileData = async ()=>{
     try {
-      const {data} = await axios.get("http://localhost:8000/api/doctor/profile",{headers:{dToken}})
+      const {data} = await axios.get(backendUrl+"/api/doctor/profile",{headers:{dToken}})
 // console.log(data)
       //if success then set the toke
       if (data.success) {
