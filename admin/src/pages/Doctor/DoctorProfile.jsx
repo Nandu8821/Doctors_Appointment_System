@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { AdminContext } from "./AdminContext";
+import { AdminContext } from '../../context/AdminContext'
 
 const DoctorProfile = () => {
     const { dToken, profileData,
