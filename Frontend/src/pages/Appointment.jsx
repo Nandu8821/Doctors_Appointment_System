@@ -9,7 +9,7 @@ import axios from "axios";
 const Appointment = () => {
   const Navigate = useNavigate();
   const { DocId } = useParams();
-  const { doctors, getDoctorsData, token } = useContext(AppContext);
+  const { doctors, getDoctorsData, token ,backendUrl} = useContext(AppContext);
   const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
   const [docInfo, setDocInfo] = useState(null);
@@ -101,7 +101,7 @@ const Appointment = () => {
       const slotDate = `${day}-${month}-${year}`;
 
       const { data } = await axios.post(
-        "http://localhost:8000/api/user/book-appointment",
+        backendUrl+"/api/user/book-appointment",
         {
           docId: DocId, // fix key casing
           slotDate,
