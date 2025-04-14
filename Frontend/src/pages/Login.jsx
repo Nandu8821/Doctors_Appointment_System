@@ -10,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [state, setState] = useState("Sign Up");
 
-  const {token, setToken}=useContext(AppContext) 
+  const {token, setToken,backendUrl}=useContext(AppContext) 
 
   const navigate = useNavigate()
 
@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     try {
         if(state === "Sign Up"){
-          const {data} = await axios.post("http://localhost:8000/api/user/register",{name,email,password})
+          const {data} = await axios.post(backendUrl+"/api/user/register",{name,email,password})
             if(data.success){
               localStorage.setItem("token",data.token)
               setToken(data.token)
@@ -26,7 +26,7 @@ const Login = () => {
               toast.error(data.message)
             }
         }else{
-          const {data} = await axios.post("http://localhost:8000/api/user/login",{email,password})
+          const {data} = await axios.post(backendUrl+"/api/user/login",{email,password})
           if(data.success){
             localStorage.setItem("token",data.token)
             setToken(data.token)
