@@ -11,12 +11,12 @@ const AdminContextProvider = (props) => {
   const [doctors, setDoctors] = useState([]);
   const [appointments,setAppointments]=useState([])
   const [dashData,setDashData]=useState(false)
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || "https://doctors-appointment-system-backend.onrender.com";
 
   const getAllDoctors = async () => {
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/admin/all-doctors",
+        backendUrl+"/api/admin/all-doctors",
         {},
         { headers: { atoken } }
       );
@@ -34,7 +34,7 @@ const AdminContextProvider = (props) => {
   const changeAvailability = async (docId) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:8000/api/admin/change-availability",
+        backendUrl+"/api/admin/change-availability",
         { docId },
         { headers: { atoken } }
       );
@@ -53,7 +53,7 @@ const AdminContextProvider = (props) => {
   const getAllAppointments = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:8000/api/admin/all-appointments",
+       backendUrl + "/api/admin/all-appointments",
         {},
         { headers: { atoken } }
       );
@@ -70,7 +70,7 @@ const AdminContextProvider = (props) => {
 
   const cancelAppointment = async (appointmentId)=>{
   try {
-    const {data}= await axios.post('http://localhost:8000/api/admin/cancel-appointment',{appointmentId},{headers:{atoken}})
+    const {data}= await axios.post(backendUrl+'/api/admin/cancel-appointment',{appointmentId},{headers:{atoken}})
 
     if (data.success) {
       toast.success(data.message)
@@ -86,7 +86,7 @@ const AdminContextProvider = (props) => {
 
   const getDashData = async () => {
    try {
-       const {data}= await axios.get("http://localhost:8000/api/admin/dashboard",{headers:{atoken}})
+       const {data}= await axios.get(backendUrl+"/api/admin/dashboard",{headers:{atoken}})
        if(data.success){
         setDashData(data.dashData)
         console.log(data.dashData)
